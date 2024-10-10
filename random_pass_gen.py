@@ -32,3 +32,19 @@ print(password)
 # For hard version, store password as a list
 # then use the random shuffle method
 # store it back into an empty string using a for loop
+
+password_list = []
+for char in range(0, nr_letters):
+    password_list.append(random.choice(letters))
+
+for char in range(0, nr_symbols):
+    password_list.append(random.choice(symbols))
+
+for char in range(0, nr_numbers):
+    password_list.append(random.choice(numbers))
+
+random.shuffle(password_list)
+
+password = ""
+for char in password_list:
+    password += char
