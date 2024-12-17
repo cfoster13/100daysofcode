@@ -26,6 +26,11 @@ while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)} / 50 Guess the State", prompt="Enter a State name: ").title()
 
 
+    if answer_state == "Exit":
+        missed_states = [state for state in state_list if state not in guessed_states] # add states user hasn't gussed to a new csv file
+        new_data = pandas.DataFrame(missed_states)
+        new_data.to_csv('week5/Guess_US_States/states_to_learn.csv')
+        break 
     if answer_state in state_list:
         guessed_states.append(answer_state)
         t = turtle.Turtle()
@@ -39,5 +44,8 @@ while len(guessed_states) < 50:
         messagebox.showinfo(f"{len(guessed_states)} / 50 Guess the State", "That's not a US State")
 
 
-screen.mainloop()
+# Save missing states to a .csv
+
+# Loop through the states list, if not in guessed states list then add to a csv
+
 
