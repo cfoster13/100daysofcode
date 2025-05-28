@@ -2,8 +2,6 @@
 # All primes are odd
 # Primes don't have a square root
 
-
-
 def is_prime(num):
     if num <= 1:
         return False
