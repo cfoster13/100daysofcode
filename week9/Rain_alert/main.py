@@ -1,11 +1,16 @@
 import requests
 import os
 from dotenv import load_dotenv
+from twilio.rest import Client
 
 load_dotenv()
 
 OMW_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
-api_key = os.getenv("WEATHER_API_KEY") # Get your API key from the .env file, Sign up on openweathermap to get your own API key
+api_key = os.getenv("WEATHER_API_KEY") # Get your API key from the .env file, Sign up on openweathermap to get your own API
+account_sid = os.getenv("TWILIO_SID") # Get your Account SID from the .env file
+auth_token = os.getenv("TWILIO_AUTH_TOKEN") # Get your Auth Token from the
+my_mobile_number = os.getenv("MY_MOBILE_NUMBER") # Get your mobile number from the .env file
+twilio_virtual_number = os.getenv("TWILIO_VIRTUAL_NUMBER") # Get your Twilio number from the .env file
 
 parameters = {
     "lat": 51.5074,
@@ -30,7 +35,21 @@ for hour_data in weather_data["list"]:
         
 
 if will_rain:
-    print("Bring an umbrella")
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+        .create(
+        body="It's going to rain today. Remember to bring an umbrella ☔",
+        from_=f"whatsapp:{twilio_virtual_number}",
+        to=f"whatsapp:{my_mobile_number}"
+    )
+
+    print(message.status)
 else:
-    print(f"No rain today, it's {weather_description}")
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+        .create(
+        body=f"No rain today, it's {weather_description}",
+        from_=f"whatsapp:{twilio_virtual_number}",
+        to=f"whatsapp:{my_mobile_number}"
+    )
 
