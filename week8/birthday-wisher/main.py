@@ -22,9 +22,13 @@ import pandas as pd
 import datetime as dt
 import random
 import smtplib
+import os
+from dotenv import load_dotenv
 
-my_email = "xerneas01best@gmail.com"
-gmail_pass = "fyanbhodjvgweohg"
+load_dotenv()
+
+my_email = os.getenv("EMAIL") # Get your email from the .env file
+gmail_pass = os.getenv("EMAIL_PASSWORD") # Get your app password from the .env file
 
 #Read csv
 data = pd.read_csv("week8/birthday-wisher/birthdays.csv")

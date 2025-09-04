@@ -1,9 +1,13 @@
 import smtplib
 import datetime as dt
 import random
+import os
+from dotenv import load_dotenv
 
-my_email = "xerneas01best@gmail.com"
-gmail_pass = "fyanbhodjvgweohg"
+load_dotenv()
+
+my_email = os.getenv("EMAIL") # Get your email from the .env file
+gmail_pass = os.getenv("EMAIL_PASSWORD") # Get your app password from the .env file
 
 
 now = dt.datetime.now()
@@ -30,7 +34,7 @@ rand_quote = random.choice(data_into_list)
 with smtplib.SMTP("smtp.gmail.com") as connection:
     connection.starttls()
     connection.login(user=my_email, password=gmail_pass)
-    if day_of_week == 4:
+    if day_of_week == 3:
         connection.sendmail(from_addr=my_email, to_addrs="xerneas01@yahoo.com", msg=f"Subject:Inspirational Quote\n\n{rand_quote}")
         print("sending email...")
         my_file.close() 
